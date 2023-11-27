@@ -7,7 +7,7 @@ function SignUpForm() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const { createUser } = useContext(UserContext);
+  const { createUser, logOut } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ function SignUpForm() {
     setEmail("");
     setPassword("");
     setUsername("");
+
     navigate("/registered");
     console.log("Sign Up:", { username, email, password });
   };
