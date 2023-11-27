@@ -10,28 +10,31 @@ function Sidebar() {
 
   return (
     <div>
-      
-      <button className="p-4 text-white bg-red-900 w-full " onClick={toggleSidebar}>
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-      </button>
-
-    
-      <aside
-        className={`fixed w-64 bg-red-900 text-white h-screen flex flex-col justify-between transform transition-transform ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-        aria-label="Sidebar"
+    {/* Hamburger Button - Visible only on small and medium screens */}
+    <button 
+      className="p-4 text-white bg-red-900 w-full md:hidden" 
+      onClick={toggleSidebar}
+    >
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
       >
+        <path d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+
+    {/* Sidebar */}
+    <aside
+      className={`fixed w-64 bg-red-900/50 text-white h-screen flex flex-col justify-between transform transition-transform ${
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0`}
+      aria-label="Sidebar"
+    >
         <div className="py-4 px-3 flex flex-col justify-between h-full">
          
           <div>
