@@ -15,7 +15,7 @@ function SignUpForm() {
     e.preventDefault();
     setError("");
     try {
-      await createUser(email, password);
+      await createUser(email, password, username);
     } catch (e) {
       setError(e.message);
       console.log(error);

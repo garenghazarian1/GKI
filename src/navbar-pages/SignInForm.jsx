@@ -11,7 +11,7 @@ function SignInForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setError("");
     try {
       signIn(email, password);
     } catch (e) {
@@ -19,6 +19,8 @@ function SignInForm() {
       console.log(error);
     }
     navigate("/vehicles");
+    setPassword("");
+    setEmail("");
     console.log("Sign In:", { username, password });
   };
 
@@ -69,7 +71,7 @@ function SignInForm() {
           </button>
         </div>
         <p className="text-center mb-4">
-          You already have an account? Click{" "}
+          You don't have an account? Click{" "}
           <Link className="text-red-500 hover:underline" to={"/sign-up"}>
             here
           </Link>{" "}
