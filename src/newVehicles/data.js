@@ -6,6 +6,7 @@ const data = [
       kilometers: 20000,
       horsepower: 255,
       year: 2020,
+      rent: 300,
       images: [
         "/vehiclesIMG/001-Mercedes-Benz C-Class-01.png",
         "/vehiclesIMG/001-Mercedes-Benz C-Class02.png"
@@ -19,6 +20,7 @@ const data = [
       kilometers: 35000,
       horsepower: 362,
       year: 2019,
+      rent: 200,
       images: [
         "/vehiclesIMG/002-Mercedes-Benz E-Class-01.png",
         "/vehiclesIMG/002-Mercedes-Benz E-Class-02.png"
@@ -32,6 +34,7 @@ const data = [
       kilometers: 15000,
       horsepower: 201,
       year: 2021,
+      rent: 220,
       images: [
         "/vehiclesIMG/003-Audi A4-01.png",
         "/vehiclesIMG/003-Audi A4-02.png"
@@ -45,6 +48,7 @@ const data = [
       kilometers: 30000,
       horsepower: 261,
       year: 2018,
+      rent: 150,
       images: [
         "/vehiclesIMG/004-Audi Q5-02.png",
         "/vehiclesIMG/004-Audi Q5-01.png"
@@ -58,6 +62,7 @@ const data = [
       kilometers: 40000,
       horsepower: 429,
       year: 2017,
+      rent: 320,
       images: [
         "/vehiclesIMG/005-Mercedes-Benz S-Class-02.png",
         "/vehiclesIMG/005-Mercedes-Benz S-Class-01.png"
