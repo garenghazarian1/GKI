@@ -1,7 +1,11 @@
+
 import React, { useState } from 'react';
 import data from '../newVehicles/data';
+import { UserContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 function Vehicles() {
+  const { user } = useContext(UserContext);
   const [activeImages, setActiveImages] = useState(data.map(() => 0));
   const [reservationStatus, setReservationStatus] = useState(data.map(() => false));
 
@@ -18,6 +22,7 @@ function Vehicles() {
   };
 
   return (
+    <p>{user ? `Username: ${user.displayName}` : ""}</p>
     <div className="container mx-auto px-4 py-6">
       {data.map((vehicle, vehicleIndex) => (
         <div key={vehicle.id} className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-2xl mb-6 shadow-lg">
@@ -67,7 +72,6 @@ function Vehicles() {
         </div>
       ))}
     </div>
-  );
-}
+
 
 export default Vehicles;
