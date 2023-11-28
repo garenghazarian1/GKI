@@ -13,6 +13,7 @@ export const UserContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [userReservedCars, setUserReservedCars] = useState([]);
 
   const createUser = async (email, password, username) => {
     try {
@@ -50,25 +51,30 @@ const AuthContextProvider = ({ children }) => {
     const newCarRef = push(userCarsRef);
     set(newCarRef, carData);
   }
+  useEffect(() => {
+    if (user) {
+      function fetchUserCars(userId) {
+        const userCarsRef = ref(db, `user_cars/${userId}`);
 
-  function logUserCars() {
-    const userCarsRef = ref(db, `user_cars/${user.uid}`);
-
-    onValue(userCarsRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const userCars = snapshot.val();
-        console.log("User's reserved cars:", userCars);
-      } else {
-        console.log("No reserved cars found for the user.");
+        onValue(userCarsRef, (snapshot) => {
+          if (snapshot.exists()) {
+            const userCarsData = snapshot.val();
+            const cars = Object.values(userCarsData);
+            setUserReservedCars(cars);
+          } else {
+            setUserReservedCars([]);
+          }
+        });
       }
-    });
-  }
+      fetchUserCars(user.uid);
+    }
+  }, [user]);
 
-  logUserCars();
+  console.log(userReservedCars);
 
   return (
     <UserContext.Provider
-      value={{ createUser, signIn, logOut, reserveCar, user }}
+      value={{ createUser, signIn, logOut, reserveCar, user, userReservedCars }}
     >
       {children}
     </UserContext.Provider>
