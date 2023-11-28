@@ -10,10 +10,10 @@ const Registered = () => {
           </h2>
           <p className="text-center">
             Click{" "}
-            <Link className="text-red-500 hover:underline" to={"/sign-in"}>
+            <Link className="text-red-500 hover:underline" to={"/dashboard"}>
               here
             </Link>{" "}
-            to sign in!
+            to continue!
           </p>
         </div>
       </div>

@@ -3,7 +3,7 @@ import data from "../newVehicles/data";
 import { UserContext } from "../context/AuthContext";
 
 function Vehicles() {
-  const { user } = useContext(UserContext);
+  const { user, reserveCar } = useContext(UserContext);
   const [activeImages, setActiveImages] = useState(data.map(() => 0));
   const [reservationStatus, setReservationStatus] = useState(
     data.map(() => false)
@@ -21,9 +21,14 @@ function Vehicles() {
     setReservationStatus(newReservationStatus);
   };
 
+  const reserveCarhandler = (vehicle, vehicleIndex) => {
+    toggleReservation(vehicleIndex);
+    reserveCar(vehicle);
+    console.log(vehicle);
+  };
+
   return (
     <div>
-    
       <div className="container mx-auto px-4 py-6">
         {data.map((vehicle, vehicleIndex) => (
           <div
@@ -62,10 +67,10 @@ function Vehicles() {
               <div className="flex justify-center mt-4">
                 {!reservationStatus[vehicleIndex] && (
                   <button
-                    onClick={() => toggleReservation(vehicleIndex)}
+                    onClick={() => reserveCarhandler(vehicle, vehicleIndex)}
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                   >
-                    Reserve
+                    Reserve now
                   </button>
                 )}
                 {reservationStatus[vehicleIndex] && (
