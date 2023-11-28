@@ -3,7 +3,7 @@ import data from "../newVehicles/data";
 import { UserContext } from "../context/AuthContext";
 
 function Vehicles() {
-  const { user, reserveCar, userReservedCars, allUserCarData } =
+  const { reserveCar, allUserCarData, userReservedCars } =
     useContext(UserContext);
   const [activeImages, setActiveImages] = useState(data.map(() => 0));
   const [reservationStatus, setReservationStatus] = useState(
@@ -24,20 +24,16 @@ function Vehicles() {
 
   const toggleReservation = (vehicleIndex) => {
     const newReservationStatus = [...reservationStatus];
-    newReservationStatus[vehicleIndex] = !newReservationStatus[vehicleIndex];
+    newReservationStatus[vehicleIndex] = !reservationStatus[vehicleIndex];
     setReservationStatus(newReservationStatus);
   };
 
   const isCarReserved = (vehicle) => {
-    const isReservedByCurrentUser = userReservedCars.some(
+    const isReservedByUsers = allUserCarData.some(
       (reservedCar) => reservedCar.id === vehicle.id
     );
 
-    const isReservedByAnyUser = allUserCarData.some((userData) =>
-      userData.cars.some((reservedCar) => reservedCar.id === vehicle.id)
-    );
-
-    return isReservedByCurrentUser || isReservedByAnyUser;
+    return isReservedByUsers;
   };
 
   return (
@@ -78,24 +74,21 @@ function Vehicles() {
               <p className="text-gray-700">{vehicle.description}</p>
               <p className="text-gray-700">Rent {vehicle.rent}€</p>
               <div className="flex justify-center mt-4">
-                {isCarReserved(vehicle) ? (
-                  <span className="text-green-600 bg-green-200 py-2 px-4 rounded">
+                {!reservationStatus[vehicleIndex] &&
+                  !isCarReserved(vehicle) && (
+                    <button
+                      onClick={() => reserveCarhandler(vehicle, vehicleIndex)}
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      Reserve now
+                    </button>
+                  )}
+                {(reservationStatus[vehicleIndex] ||
+                  isCarReserved(vehicle)) && (
+                  <span className="text-green-600 bg-green-200 py-2 px-4 rounded mr-2">
                     Reserved
                   </span>
-                ) : (
-                  <button
-                    onClick={() => reserveCarhandler(vehicle, vehicleIndex)}
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Reserve now
-                  </button>
                 )}
-                {/* <button
-                      onClick={() => toggleReservation(vehicleIndex)}
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      Cancel Reservation
-                    </button> */}
               </div>
             </div>
           </div>

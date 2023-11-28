@@ -78,23 +78,26 @@ const AuthContextProvider = ({ children }) => {
 
         onValue(allUsersCarsRef, (snapshot) => {
           const allUsersCarsData = snapshot.val();
-          const allUsersWithCars = [];
+          const allCars = [];
 
           if (allUsersCarsData) {
+            // Loop through all users' car data and compile into an array
             Object.keys(allUsersCarsData).forEach((userId) => {
               const userCars = Object.values(allUsersCarsData[userId]);
-              allUsersWithCars.push({ userId, cars: userCars });
+              allCars.push(...userCars);
             });
           }
 
-          setAllUserCarData(allUsersWithCars);
+          setAllUserCarData(allCars);
+          // Do something with allCars array (e.g., update state, use the data)
         });
       };
       fetchAllUsersCars();
     }
-  }, []);
+  }, [user]);
 
   console.log(allUserCarData);
+  console.log(userReservedCars);
 
   return (
     <UserContext.Provider
