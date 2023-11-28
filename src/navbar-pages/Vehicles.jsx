@@ -36,6 +36,14 @@ function Vehicles() {
     return isReservedByUsers;
   };
 
+  const isCarReservedFromCurrent = (vehicle) => {
+    const isReservedByCurrent = userReservedCars.some(
+      (reservedCar) => reservedCar.id === vehicle.id
+    );
+
+    return isReservedByCurrent;
+  };
+
   return (
     <div>
       <div className="container mx-auto px-4 py-6">
@@ -89,6 +97,18 @@ function Vehicles() {
                     Reserved
                   </span>
                 )}
+                <div>
+                  {isCarReservedFromCurrent(vehicle) ? (
+                    <button
+                      onClick={() => toggleReservation(vehicleIndex)}
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      Cancel Reservation
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
             </div>
           </div>
