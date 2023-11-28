@@ -14,6 +14,7 @@ export const UserContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [userReservedCars, setUserReservedCars] = useState([]);
+  const [allUserCarData, setAllUserCarData] = useState([]);
 
   const createUser = async (email, password, username) => {
     try {
@@ -70,11 +71,42 @@ const AuthContextProvider = ({ children }) => {
     }
   }, [user]);
 
-  console.log(userReservedCars);
+  useEffect(() => {
+    if (user) {
+      const fetchAllUsersCars = () => {
+        const allUsersCarsRef = ref(db, `user_cars`);
+
+        onValue(allUsersCarsRef, (snapshot) => {
+          const allUsersCarsData = snapshot.val();
+          const allUsersWithCars = [];
+
+          if (allUsersCarsData) {
+            Object.keys(allUsersCarsData).forEach((userId) => {
+              const userCars = Object.values(allUsersCarsData[userId]);
+              allUsersWithCars.push({ userId, cars: userCars });
+            });
+          }
+
+          setAllUserCarData(allUsersWithCars);
+        });
+      };
+      fetchAllUsersCars();
+    }
+  }, []);
+
+  console.log(allUserCarData);
 
   return (
     <UserContext.Provider
-      value={{ createUser, signIn, logOut, reserveCar, user, userReservedCars }}
+      value={{
+        createUser,
+        signIn,
+        logOut,
+        reserveCar,
+        user,
+        userReservedCars,
+        allUserCarData,
+      }}
     >
       {children}
     </UserContext.Provider>
