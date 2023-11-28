@@ -15,6 +15,7 @@ function Sidebar() {
   return (
     <div>
       {/* Hamburger Button - Visible only on small and medium screens */}
+      <p>{user ? `Username: ${user.displayName}` : ""}</p>
       <button
         className="p-4 text-white bg-red-900 w-full md:hidden"
         onClick={toggleSidebar}

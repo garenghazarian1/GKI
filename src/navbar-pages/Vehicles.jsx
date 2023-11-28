@@ -23,7 +23,6 @@ function Vehicles() {
 
   return (
     <div>
-      <p>{user ? `Username: ${user.displayName}` : ""}</p>
       <div className="container mx-auto px-4 py-6">
         {data.map((vehicle, vehicleIndex) => (
           <div
