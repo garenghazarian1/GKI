@@ -29,7 +29,7 @@ function Vehicles() {
   };
 
   const isCarReserved = (vehicle) => {
-    const isReservedByUsers = allUserCarData.some(
+    const isReservedByUsers = allUserCarData.find(
       (reservedCar) => reservedCar.id === vehicle.id
     );
 
@@ -37,7 +37,7 @@ function Vehicles() {
   };
 
   const isCarReservedFromCurrent = (vehicle) => {
-    const isReservedByCurrent = userReservedCars.some(
+    const isReservedByCurrent = userReservedCars.find(
       (reservedCar) => reservedCar.id === vehicle.id
     );
 
