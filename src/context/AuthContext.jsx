@@ -81,7 +81,6 @@ const AuthContextProvider = ({ children }) => {
           const allCars = [];
 
           if (allUsersCarsData) {
-            // Loop through all users' car data and compile into an array
             Object.keys(allUsersCarsData).forEach((userId) => {
               const userCars = Object.values(allUsersCarsData[userId]);
               allCars.push(...userCars);
@@ -89,7 +88,6 @@ const AuthContextProvider = ({ children }) => {
           }
 
           setAllUserCarData(allCars);
-          // Do something with allCars array (e.g., update state, use the data)
         });
       };
       fetchAllUsersCars();
