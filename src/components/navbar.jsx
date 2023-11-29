@@ -16,10 +16,6 @@ function Sidebar() {
     <div>
       {/* Hamburger Button - Visible only on small and medium screens */}
 
-      <p className="text-base font-medium text-white p-4">
-  {user ? `Welcome ${user.displayName}!` : ""}
-</p>
-
       <button
         className="p-4 text-white bg-red-900 w-full md:hidden"
         onClick={toggleSidebar}
@@ -44,6 +40,9 @@ function Sidebar() {
         } md:translate-x-0`}
         aria-label="Sidebar"
       >
+        <p className="text-base font-medium text-white p-4">
+          {user ? `Welcome ${user.displayName}!` : ""}
+        </p>
         <div className="py-4 px-3 flex flex-col justify-between h-full">
           <div>
             <NavLink to="/" className="flex items-center space-x-2 px-4 py-2">
