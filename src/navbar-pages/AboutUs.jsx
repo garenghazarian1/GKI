@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 
 
 export default function AboutUs() {
@@ -21,9 +22,13 @@ export default function AboutUs() {
             we strive to exceed your expectations. Choose us for your next journey, and experience the difference 
             that quality and care can make.
         </p>
-        <a href="/contact" className="text-white bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out py-3 px-6 rounded-lg font-bold">
-            Contact Us
-        </a>
+        <NavLink 
+  to="/contact-us" 
+  className="text-white bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out py-3 px-6 rounded-lg font-bold"
+>
+  Contact Us
+</NavLink>
+
     </div>
 </div>
 </div>

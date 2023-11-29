@@ -72,10 +72,10 @@ function Sidebar() {
                 <span>About Us</span>
               </NavLink>
               <NavLink
-                to="/location"
+                to="/contact-us"
                 className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-blue-700"
               >
-                <span>Location</span>
+                <span>Contact Us</span>
               </NavLink>
             </nav>
             <div className="flex flex-col space-y-2">
