@@ -12,6 +12,10 @@ function Sidebar() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  if (user) {
+    console.log("User navbar", user.displayName);
+  }
+
   return (
     <div>
       {/* Hamburger Button - Visible only on small and medium screens */}

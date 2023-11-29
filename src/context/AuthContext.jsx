@@ -24,6 +24,7 @@ const AuthContextProvider = ({ children }) => {
         password
       );
       await updateProfile(userCredential.user, { displayName: username });
+      setUser({ ...userCredential.user, displayName: username });
     } catch (e) {
       console.log("Error:", e);
     }
