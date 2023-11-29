@@ -54,6 +54,12 @@ const AuthContextProvider = ({ children }) => {
     set(newCarRef, carData);
   };
 
+  const contactUsSubmit = (formData) => {
+    const userFormRef = ref(db, `form_data/${user.uid}`);
+    const newFormRef = push(userFormRef);
+    set(newFormRef, formData);
+  };
+
   const cancelReservation = (vehicle) => {
     // Find the car -- working
     const carToRemoveRef = userReservedCars.find(
@@ -139,6 +145,7 @@ const AuthContextProvider = ({ children }) => {
         logOut,
         reserveCar,
         cancelReservation,
+        contactUsSubmit,
         user,
         userReservedCars,
         allUserCarData,
