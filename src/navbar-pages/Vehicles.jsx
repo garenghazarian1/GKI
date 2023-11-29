@@ -25,6 +25,9 @@ function Vehicles() {
   const cancelReservationHandler = (vehicle, vehicleIndex) => {
     toggleReservation(vehicleIndex);
     cancelReservation(vehicle);
+    const newReservationStatus = [...reservationStatus];
+    newReservationStatus[vehicleIndex] = false;
+    setReservationStatus(newReservationStatus);
   };
 
   const toggleReservation = (vehicleIndex) => {

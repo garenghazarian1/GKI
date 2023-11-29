@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../../firebase.js";
-import { ref, set, push, onValue, remove } from "firebase/database";
+import { ref, set, push, onValue } from "firebase/database";
 
 export const UserContext = createContext();
 
