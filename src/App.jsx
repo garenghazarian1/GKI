@@ -14,6 +14,7 @@ import SignInForm from "./navbar-pages/SignInForm";
 import SignUpForm from "./navbar-pages/SignUpForm";
 import Registered from "./navbar-pages/Registered";
 import AuthContextProvider from "./context/AuthContext";
+import ContactUs from "./navbar-pages/contactus";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/vehicles" element={<Vehicles />} />
+                <Route path="/contact-us" element={<ContactUs />} />
                 <Route
                   path="/"
                   element={<Navigate replace to="/dashboard" />}
