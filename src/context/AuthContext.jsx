@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../../firebase.js";
-import { ref, set, push, onValue } from "firebase/database";
+import { ref, set, push, onValue, remove } from "firebase/database";
 
 export const UserContext = createContext();
 
@@ -40,28 +40,61 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
+      console.log("Current user", currentUser);
     });
     return () => {
       unsubscribe();
     };
   }, []);
 
-  function reserveCar(carData) {
+  const reserveCar = (carData) => {
     const userCarsRef = ref(db, `user_cars/${user.uid}`);
     const newCarRef = push(userCarsRef);
     set(newCarRef, carData);
-  }
+  };
+
+  const cancelReservation = (vehicle) => {
+    // Find the car -- working
+    const carToRemoveRef = userReservedCars.find(
+      (car) => car.id === vehicle.id
+    );
+
+    // firebase key is undefined
+    const carRef = ref(db, `user_cars/${user.uid}/${carToRemoveRef.key}`);
+
+    if (carToRemoveRef) {
+      console.log("Car ref", carRef);
+      console.log("Firebase car Key:", carToRemoveRef.key);
+      console.log("Vehicle:", vehicle);
+
+      // Remove the car from the reference
+      set(carRef, null)
+        .then(() => {
+          // Update the array -- working
+          const updatedUserCars = userReservedCars.filter(
+            (car) => car.id !== vehicle.id
+          );
+          setUserReservedCars(updatedUserCars);
+        })
+        .catch((error) => {
+          console.error("Error removing car:", error);
+        });
+    }
+  };
+
   useEffect(() => {
     if (user) {
       function fetchUserCars(userId) {
         const userCarsRef = ref(db, `user_cars/${userId}`);
-
         onValue(userCarsRef, (snapshot) => {
           if (snapshot.exists()) {
-            const userCarsData = snapshot.val();
-            const cars = Object.values(userCarsData);
-            setUserReservedCars(cars);
+            const userCarsData = [];
+            snapshot.forEach((childSnapshot) => {
+              const key = childSnapshot.key;
+              const carData = childSnapshot.val();
+              userCarsData.push({ ...carData, key });
+            });
+            setUserReservedCars(userCarsData);
           } else {
             setUserReservedCars([]);
           }
@@ -94,8 +127,8 @@ const AuthContextProvider = ({ children }) => {
     }
   }, [user]);
 
-  console.log(allUserCarData);
-  console.log(userReservedCars);
+  console.log("All users cars", allUserCarData);
+  console.log("Current users cars", userReservedCars);
 
   return (
     <UserContext.Provider
@@ -104,6 +137,7 @@ const AuthContextProvider = ({ children }) => {
         signIn,
         logOut,
         reserveCar,
+        cancelReservation,
         user,
         userReservedCars,
         allUserCarData,
