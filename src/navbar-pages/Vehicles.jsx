@@ -3,7 +3,7 @@ import data from "../newVehicles/data";
 import { UserContext } from "../context/AuthContext";
 
 function Vehicles() {
-  const { reserveCar, allUserCarData, userReservedCars } =
+  const { reserveCar, allUserCarData, userReservedCars, cancelReservation } =
     useContext(UserContext);
   const [activeImages, setActiveImages] = useState(data.map(() => 0));
   const [reservationStatus, setReservationStatus] = useState(
@@ -16,10 +16,18 @@ function Vehicles() {
     setActiveImages(newActiveImages);
   };
 
-  const reserveCarhandler = (vehicle, vehicleIndex) => {
+  const reserveCarHandler = (vehicle, vehicleIndex) => {
     toggleReservation(vehicleIndex);
     reserveCar(vehicle);
     console.log(vehicle);
+  };
+
+  const cancelReservationHandler = (vehicle, vehicleIndex) => {
+    toggleReservation(vehicleIndex);
+    cancelReservation(vehicle);
+    const newReservationStatus = [...reservationStatus];
+    newReservationStatus[vehicleIndex] = false;
+    setReservationStatus(newReservationStatus);
   };
 
   const toggleReservation = (vehicleIndex) => {
@@ -85,7 +93,7 @@ function Vehicles() {
                 {!reservationStatus[vehicleIndex] &&
                   !isCarReserved(vehicle) && (
                     <button
-                      onClick={() => reserveCarhandler(vehicle, vehicleIndex)}
+                      onClick={() => reserveCarHandler(vehicle, vehicleIndex)}
                       className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                     >
                       Reserve now
@@ -100,7 +108,9 @@ function Vehicles() {
                 <div>
                   {isCarReservedFromCurrent(vehicle) ? (
                     <button
-                      onClick={() => toggleReservation(vehicleIndex)}
+                      onClick={() =>
+                        cancelReservationHandler(vehicle, vehicleIndex)
+                      }
                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
                       Cancel Reservation
